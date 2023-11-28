@@ -1,0 +1,19 @@
+version: "1"
+
+services:
+  react:
+    build: ./frontend
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    depends_on:
+      - "flask"
+    stdin_open: true
+
+  flask:
+    build: ./backend
+    expose:
+      - 5000
+    ports:
+      - "5001:5000"

@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import $ from "jquery";
+import { getResumes, uploadResume } from "../api/getFiles.js";
 import "../static/resume.css";
 
 export default class ManageResumePage extends Component {
@@ -15,25 +16,12 @@ export default class ManageResumePage extends Component {
     this.getFiles.bind(this);
   }
 
-  getFiles() {
-    $.ajax({
-      url: "http://localhost:5000/resume",
-      method: "GET",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-        "Access-Control-Allow-Credentials": "true",
-      },
-      xhrFields: {
-        responseType: "blob",
-      },
-      credentials: "include",
-      success: (message, textStatus, response) => {
-        console.log(response.getResponseHeader("x-fileName"));
-        this.setState({ fileName: response.getResponseHeader("x-fileName") });
-        this.setState({ resumeDownloadContent: message });
-      },
-    });
+  async getFiles() {
+    const res = await getResumes();
+    console.log(res);
+    console.log("response headers", res.headers);
+    this.setState({ fileName: "ResumeFile" });
+    this.setState({ resumeDownloadContent: res });
   }
   handleChange(event) {
     var name = event.target.files[0].name;
@@ -41,7 +29,7 @@ export default class ManageResumePage extends Component {
     this.setState({ fileuploadname: name });
   }
 
-  uploadResume() {
+  async uploadResume() {
     this.setState({ fileName: this.state.fileuploadname });
     console.log(this.value);
     const fileInput = document.getElementById("file").files[0];
@@ -51,27 +39,13 @@ export default class ManageResumePage extends Component {
     formData.append("file", fileInput);
     //console.log(formData);
 
-    $.ajax({
-      url: "http://localhost:5000/resume",
-      method: "POST",
-      headers: {
-        Authorization: "Bearer " + localStorage.getItem("token"),
-        "Access-Control-Allow-Origin": "http://localhost:3000",
-        "Access-Control-Allow-Credentials": "true",
-      },
-      data: formData,
-      contentType: false,
-      cache: false,
-      processData: false,
-      success: (msg) => {
-        console.log(msg);
-      },
-    });
+    const some = await uploadResume(formData);
+    console(some, "after upload");
   }
 
-  downloadResume() {
+  async downloadResume() {
     $.ajax({
-      url: "http://localhost:5000/resume",
+      url: "http://localhost:3000/resume",
       method: "GET",
       headers: {
         Authorization: "Bearer " + localStorage.getItem("token"),

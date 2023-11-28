@@ -23,7 +23,7 @@ exit_result $? "Backend boot"
 echo -e "Navigating to frontend..."
 cd ../frontend || exit
 echo -e "Attempting to start frontend..."
-npm start &
+yarn start &
 echo -e "(Frontend takes some time to load, please be patient...)"
 exit_result $? "Frontend boot"
 

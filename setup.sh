@@ -1,4 +1,4 @@
-#! /bin/bash
+# /bin/bash
 # This setup file assumes you have pip and npm already installed, and that
 # you are using this script from an already-cloned repository in the project root directory.
 

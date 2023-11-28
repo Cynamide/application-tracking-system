@@ -5,7 +5,7 @@ import "../static/resume.css";
 function JobRecommendPage() {
   const [fileName, setFileName] = useState("");
   const [jobRecommendations, setJobRecommendations] = useState({});
-  const [resumeDownloadContent, setResumeDownloadContent] = useState("");
+  const [ setResumeDownloadContent] = useState("");
 
   useEffect(() => {
     // Fetch the data only after this component is mounted

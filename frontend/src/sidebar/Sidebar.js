@@ -21,7 +21,7 @@ export default class Sidebar extends Component {
             <i className="fas fa-folder left-nav-icon"></i>
           </div>
           <div onClick={() => this.props.switchPage("JobRecommendPage")}>
-            <i class="fas fa-crosshairs left-nav-icon"></i>
+            <i className="fas fa-crosshairs left-nav-icon"></i>
           </div>
         </div>
       </div>
